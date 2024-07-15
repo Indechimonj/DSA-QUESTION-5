@@ -10,10 +10,10 @@ import java.util.*;
  * @author Samuel Imonje
  */
 public class PlantManager {
-    private final List<Plant> plantList;
-    private final Queue<Plant> wateringQueue;
-    private final Stack<Plant> historyStack;
-    private PlantBinaryTree root;
+    private final List<Plant> plantList;//a list to store all plants
+    private final Queue<Plant> wateringQueue;//a queue to manage the watering schedule
+    private final Stack<Plant> historyStack;//a stack to track the history of watered plants
+    private PlantBinaryTree root;//root node of the Binary search Tree
 
     public PlantManager() {
         plantList = new ArrayList<>();
@@ -22,14 +22,14 @@ public class PlantManager {
         root = null;
     }
 
-    // Add a plant
+    // Add a plant to the list,Queue or BST
     public void addPlant(Plant plant) {
         plantList.add(plant);
         wateringQueue.offer(plant);
         root = insertIntoBST(root, plant);
     }
 
-    // Insert a plant into BinarySearchTree
+    // Insert a plant into BinarySearchTree based on its species
     private PlantBinaryTree insertIntoBST(PlantBinaryTree root, Plant plant) {
         if (root == null) {
             return new PlantBinaryTree(plant);
@@ -44,19 +44,19 @@ public class PlantManager {
 
     // Water the next plant
     public Plant waterNextPlant() {
-        Plant nextPlant = wateringQueue.poll();
+        Plant nextPlant = wateringQueue.poll();//removes the next plant from the queue and adds it to the plant
         if (nextPlant != null) {
             historyStack.push(nextPlant);
         }
         return nextPlant;
     }
 
-    // Get plant history
+    // Get plant history;retrieves the history of watered plants from the stack
     public List<Plant> getHistory() {
         return new ArrayList<>(historyStack);
     }
 
-    // Inorder traversal of BST to get plants by species
+    // Inorder traversal of BST to get plants by species:performs an inorder traversal of the bst to get an ordered list of plants by species
     public List<Plant> getPlantsBySpecies() {
         List<Plant> plants = new ArrayList<>();
         inorderTraversal(root, plants);
@@ -70,7 +70,7 @@ public class PlantManager {
             inorderTraversal(node.right, plants);
         }  
     }
-    
+    //Main method to be excuted
      public static void main(String[] args) {
         
         PlantManager manager = new PlantManager();
