@@ -33,7 +33,7 @@ public class Plant {
 
     @Override
     public String toString() {
-        return name + " (" + species + "), Age: " + age;
+        return name + " (" + species + "), Age: " + age;//returns a string representation to the plant for easy display
     }
 }
 
